@@ -1,60 +1,77 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Navbar from "../component/NavBar.jsx";
 
 const TOTAL_FRAMES = 300;
 const START_SHOW_NAVBAR_AT = 180;
 
 const Home = () => {
-    const [imagesLoaded, setImagesLoaded] = useState(false);
-    const [currentFrame, setCurrentFrame] = useState(0);
+    const canvasRef = useRef(null);
+    const [images, setImages] = useState([]);
     const [showNavbar, setShowNavbar] = useState(false);
-    const [imageSrcs, setImageSrcs] = useState([]);
 
-    // Prepare all image srcs
+    // Load all images into memory
     useEffect(() => {
-        const srcs = [];
-        for (let i = 1; i <= TOTAL_FRAMES; i++) {
-            srcs.push(`/images/hero/img_${String(i).padStart(3, "0")}.jpg`);
-        }
-        setImageSrcs(srcs);
+        const loadImages = async () => {
+            const loadedImages = [];
+            for (let i = 1; i <= TOTAL_FRAMES; i++) {
+                const img = new Image();
+                img.src = `/images/hero/img_${String(i).padStart(3, "0")}.jpg`;
+                await new Promise((res) => {
+                    img.onload = res;
+                    img.onerror = res;
+                });
+                loadedImages.push(img);
+            }
+            setImages(loadedImages);
+        };
+        loadImages();
     }, []);
 
-    // Preload all images
+    // Draw first frame when images are loaded
     useEffect(() => {
-        if (!imageSrcs.length) return;
-        let loadedCount = 0;
-        imageSrcs.forEach((src) => {
-            const img = new Image();
-            img.src = src;
-            img.onload = () => {
-                loadedCount++;
-                if (loadedCount === imageSrcs.length) {
-                    setImagesLoaded(true);
-                }
-            };
-            img.onerror = () => {
-                loadedCount++;
-                if (loadedCount === imageSrcs.length) {
-                    setImagesLoaded(true);
-                }
-            };
-        });
-    }, [imageSrcs]);
+        if (images.length === TOTAL_FRAMES) {
+            const canvas = canvasRef.current;
+            const context = canvas.getContext("2d");
+            context.drawImage(images[0], 0, 0, canvas.width, canvas.height);
+        }
+    }, [images]);
 
-    // Handle scroll event to set current frame and showNavbar flag
+    // Handle scroll and draw the correct frame
     useEffect(() => {
+        const canvas = canvasRef.current;
+        const context = canvas.getContext("2d");
+
         const handleScroll = () => {
+            if (!images.length) return;
+
             const scrollY = window.scrollY;
-            const maxScroll = window.innerHeight * 3; // 300vh scroll
+            const maxScroll = window.innerHeight * 3; // 300vh
             const progress = Math.min(1, scrollY / maxScroll);
-            const frame = Math.floor(progress * (TOTAL_FRAMES - 1));
-            setCurrentFrame(frame);
-            setShowNavbar(frame >= START_SHOW_NAVBAR_AT);
+            const currentFrame = Math.floor(progress * (TOTAL_FRAMES - 1));
+            const image = images[currentFrame];
+
+            if (image?.complete && image.naturalWidth !== 0) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.drawImage(image, 0, 0, canvas.width, canvas.height);
+                setShowNavbar(currentFrame >= START_SHOW_NAVBAR_AT);
+            }
         };
+
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [images]);
 
+    // Resize canvas to match window
+    useEffect(() => {
+        const resizeCanvas = () => {
+            const canvas = canvasRef.current;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+        return () => window.removeEventListener("resize", resizeCanvas);
+    }, []);
 
     return (
         <div className="relative w-full bg-[#FAFAFA]">
@@ -64,18 +81,12 @@ const Home = () => {
             <div className="h-[300vh] relative sticky top-0">
                 <div className="sticky top-0 h-screen w-full">
 
-                    {imagesLoaded &&
-                        imageSrcs.map((src, idx) => (
-                            <img
-                                key={idx}
-                                src={src}
-                                alt={`Frame ${idx}`}
-                                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-200 ease-out pointer-events-none ${idx === currentFrame ? "opacity-100 z-10" : "opacity-0 z-0"
-                                    }`}
-                                draggable={false}
-                                loading="eager"
-                            />
-                        ))}
+                    <canvas
+                        ref={canvasRef}
+                        className="w-full h-full"
+                        style={{ display: "block", objectFit: "cover" }}
+                    />
+
                     {/* Scroll Down Icon */}
                     {showNavbar && (
                         <div className="fixed bottom-5 left-1/2 transform -translate-x-1/2 z-50 cursor-pointer text-center flex flex-col items-center justify-center animate-bounce">
