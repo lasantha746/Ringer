@@ -125,7 +125,7 @@ const Home = () => {
                     </p>
 
                     <h2 className="font-playfair font-semibold text-3xl sm:text-4xl md:text-[56px] lg:text-[72px] leading-snug sm:leading-tight md:leading-[1.2] lg:leading-[1.3] mb-5">
-                        Crafted for the Moment You’ll Never Forget
+                        Crafted for the Moment You’ll Never Forget 02
                     </h2>
 
 
