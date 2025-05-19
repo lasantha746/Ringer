@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import Navbar from "../component/NavBar.jsx";
+import ProductSlider from "../component/ProductSlider.jsx";
 
 const TOTAL_FRAMES = 300;
 const START_SHOW_NAVBAR_AT = 180;
@@ -8,6 +9,25 @@ const Home = () => {
     const canvasRef = useRef(null);
     const [images, setImages] = useState([]);
     const [showNavbar, setShowNavbar] = useState(false);
+
+
+    const slider1Ref = useRef(null);
+    const slider2Ref = useRef(null);
+    const [slider1Top, setSlider1Top] = useState("-4rem");
+    const [slider2Top, setSlider2Top] = useState("-4rem");
+    useEffect(() => {
+        if (slider1Ref.current) {
+            const windowHeight = window.innerHeight;
+            const height = slider1Ref.current.offsetHeight - windowHeight;
+            setSlider1Top(`-${height}px`);
+        }
+        if (slider2Ref.current) {
+            const windowHeight = window.innerHeight;
+            const height = slider2Ref.current.offsetHeight - windowHeight;
+            setSlider2Top(`-${height}px`);
+        }
+    }, []);
+
 
     // Load all images into memory
     useEffect(() => {
@@ -103,45 +123,48 @@ const Home = () => {
                 </div>
             </div>
 
+
+
             {/* Slider 01 Section */}
             <div
+                ref={slider1Ref}
                 className="sticky top-0 bg-[#FAFAFA] min-h-screen p-5 md:p-10 pt-10 md:pt-20 rounded-t-[4rem] md:rounded-t-[8rem] shadow-[0_-8px_16px_rgba(0,0,0,0.1)]"
-
+                style={{ top: slider1Top, minHeight: 'calc(100vh + 4rem)' }}
             >
                 <div className="text-center px-0 sm:px-0 md:px-[10%]">
-                    <p className="font-inter font-normal text-lg sm:text-xl md:text-[20px] mb-7 sm:mb-4">
+                    <p className="font-inter font-normal text-lg sm:text-xl md:text-[20px] mb-7 sm:mb-4 bg-[#FFFFFF] rounded-[60px] px-6 py-2 inline-block">
                         Products
                     </p>
-
                     <h2 className="font-playfair font-semibold text-3xl sm:text-4xl md:text-[56px] lg:text-[72px] leading-snug sm:leading-tight md:leading-[1.2] lg:leading-[1.3] mb-5">
                         Crafted for the Moment You’ll Never Forget
                     </h2>
-
-
                     <p className="font-poppins font-light text-base sm:text-lg md:text-xl mt-2 sm:mt-4 mb-4">
                         Our rings are designed with precision, love, and intention. Whether it’s a proposal, anniversary, or personal milestone—your story deserves brilliance.
                     </p>
                 </div>
-
+                <div className="mb-20">
+                    <ProductSlider />
+                </div>
             </div>
 
             {/* Slider 02 Section */}
             <div
-                className="sticky top-0 bg-[#FAFAFA] min-h-screen p-5 md:p-10 pt-10 md:pt-20 rounded-t-[4rem] md:rounded-t-[8rem] shadow-[0_-8px_16px_rgba(0,0,0,0.1)]"
-
+                ref={slider2Ref}
+                className="sticky top-0 bg-[#FFFFFF] min-h-screen p-5 md:p-10 pt-10 md:pt-20 rounded-t-[4rem] md:rounded-t-[8rem] shadow-[0_-8px_16px_rgba(0,0,0,0.1)]"
+                style={{ top: slider2Top, minHeight: 'calc(100vh + 4rem)' }}
             >
                 <div className="text-center px-0 sm:px-0 md:px-[10%]">
-                    <p className="font-inter font-normal text-lg sm:text-xl md:text-[20px] mb-7 sm:mb-4">
-                        Products
+                    <p className="font-inter font-normal text-lg sm:text-xl md:text-[20px] mb-7 sm:mb-4 bg-[#FAFAFA] rounded-[60px] px-6 py-2 inline-block">
+                        Testimonials
                     </p>
 
                     <h2 className="font-playfair font-semibold text-3xl sm:text-4xl md:text-[56px] lg:text-[72px] leading-snug sm:leading-tight md:leading-[1.2] lg:leading-[1.3] mb-5">
-                        Crafted for the Moment You’ll Never Forget 02
+                       Lorem ipsum dolor sit amet, consectetur adipiscing sed do
                     </h2>
 
 
                     <p className="font-poppins font-light text-base sm:text-lg md:text-xl mt-2 sm:mt-4 mb-4">
-                        Our rings are designed with precision, love, and intention. Whether it’s a proposal, anniversary, or personal milestone—your story deserves brilliance.
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
                     </p>
                 </div>
 

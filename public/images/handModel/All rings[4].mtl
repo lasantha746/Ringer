@@ -1,0 +1,33 @@
+# Blender 4.2.3 LTS MTL File: 'All rings[1].blend'
+# www.blender.org
+
+newmtl Material.006
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl Material.009
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.184474 0.122141 0.102240
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl Thering
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+illum 2
+map_Kd C:/Thering_baseColor.png
+map_Ke C:/Thering_emissive.jpeg
+map_d C:/Thering_baseColor.png
+map_Bump -bm 0.605556 C:/Thering_normal.jpeg
