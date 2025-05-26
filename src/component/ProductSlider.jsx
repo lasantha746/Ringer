@@ -10,6 +10,7 @@ const sliderItems = [
 ];
 
 export default function ProductSlider() {
+  const [isLoading, setIsLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(1);
   const [screenConfig, setScreenConfig] = useState({
     width: 200,
@@ -19,6 +20,17 @@ export default function ProductSlider() {
   });
 
   const [isMobile, setIsMobile] = useState(false);
+
+
+
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 500); // 1 second delay
+
+    return () => clearTimeout(timer);
+  }, [activeIndex]);
 
   useEffect(() => {
     const updateConfig = () => {
@@ -105,27 +117,35 @@ export default function ProductSlider() {
                   style={{
                     width: `${screenConfig.width}px`,
                     height: `${screenConfig.height}px`,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
                   }}
                 >
-                  <ObjViewer
-                    obj={item.obj}
-                    mtl={item.mtl}
-                    width={screenConfig.Mwidth}
-                    height={screenConfig.Mheight}
-                    position={[0, 0, 2]} // x, y, z
-                    rotation={[20, -10, -20]} // degrees: x, y, z
-                  />
+                  {isLoading && (
+                    <div className={`${!isLoading ? 'hidden' : ''} w-12 h-12 border-4 border-t-transparent border-blue-500 rounded-full animate-spin`}></div>
+                  )}
+                  <div className={`${!isLoading ? '' : 'hidden'} w-full h-full`}>
+                    < ObjViewer
+                      obj={item.obj}
+                      mtl={item.mtl}
+                      width={screenConfig.Mwidth}
+                      height={screenConfig.Mheight}
+                      position={[0, 0, 2]} // x, y, z
+                      rotation={[20, -10, -20]} // degrees: x, y, z
+                    />
+                  </div>
                 </div>
               ) : (
                 <div style={{ width: '250px', height: '400px', position: 'absolute', visibility: 'hidden' }}>
-                  <ObjViewer
+                  {/* <ObjViewer
                     obj={item.obj}
                     mtl={item.mtl}
                     width={screenConfig.Mwidth}
                     height={screenConfig.Mheight}
                     position={[0, 0, 2]} // x, y, z
                     rotation={[20, -10, -20]} // degrees: x, y, z
-                  />
+                  /> */}
                 </div>
               )}
               {!isCenter && (
