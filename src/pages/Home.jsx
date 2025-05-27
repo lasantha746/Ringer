@@ -1,6 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Play, Pause } from 'lucide-react';
+
 import Navbar from "../component/NavBar.jsx";
 import ProductSlider from "../component/ProductSlider.jsx";
+import Customisations from "../component/Customisations.jsx";
 import CursorWaterEffect from "../component/CursorWaterEffect.jsx";
 
 const TOTAL_FRAMES = 300;
@@ -50,6 +54,60 @@ const Home = () => {
         }
     }, []);
 
+    //video play button
+    const videoRef = useRef(null);
+    const timeoutRef = useRef(null);  // to store timeout ID
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [showIcon, setShowIcon] = useState(true);
+
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        const handlePause = () => {
+            setIsPlaying(false);
+            setShowIcon(true);
+            clearTimeout(timeoutRef.current);
+        };
+
+        const handleEnded = () => {
+            setIsPlaying(false);
+            setShowIcon(true);
+            clearTimeout(timeoutRef.current);
+            video.pause();
+        };
+
+        video.addEventListener("pause", handlePause);
+        video.addEventListener("ended", handleEnded);
+
+        return () => {
+            video.removeEventListener("pause", handlePause);
+            video.removeEventListener("ended", handleEnded);
+            clearTimeout(timeoutRef.current);
+        };
+    }, []);
+
+    // Toggle play/pause on video or icon click
+    const togglePlay = () => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        if (video.paused) {
+            video.play();
+            setIsPlaying(true);
+            setShowIcon(true);
+            clearTimeout(timeoutRef.current);  // clear old timeout if any
+            timeoutRef.current = setTimeout(() => {
+                setShowIcon(false);
+            }, 1000);
+        } else {
+            video.pause();
+            setIsPlaying(false);
+            setShowIcon(true);
+            clearTimeout(timeoutRef.current);
+        }
+    };
 
     // Load all images into memory
     useEffect(() => {
@@ -218,19 +276,56 @@ const Home = () => {
                 className="sticky top-0 bg-[#FFFFFF] min-h-screen p-5 md:p-10 pt-10 md:pt-20 rounded-t-[4rem] md:rounded-t-[8rem] shadow-[0_-8px_16px_rgba(0,0,0,0.1)]"
                 style={{ top: slider4Top, minHeight: 'calc(100vh + 4rem)' }}
             >
-                <div className="text-center px-0 sm:px-0 md:px-[10%]">
+                <div className="text-center px-0 sm:px-0 md:px-[10%] mb-10 pb-10">
                     <p className="font-inter font-normal text-lg sm:text-xl md:text-[20px] mb-7 sm:mb-4 bg-[#FAFAFA] rounded-[60px] px-6 py-2 inline-block">
                         Customisations
                     </p>
 
-                    <h2 className="font-playfair font-semibold text-3xl sm:text-4xl md:text-[56px] lg:text-[72px] leading-snug sm:leading-tight md:leading-[1.2] lg:leading-[1.3] mb-5">
+                    <h2 className="font-playfair font-semibold text-3xl sm:text-4xl md:text-[56px] lg:text-[72px] leading-snug sm:leading-tight md:leading-[1.2] lg:leading-[1.3] mb-10">
                         Lorem ipsum dolor sit amet, consectetur adipiscing sed do
                     </h2>
 
+                    <Customisations />
 
-                    <p className="font-poppins font-light text-base sm:text-lg md:text-xl mt-2 sm:mt-4 mb-4">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-                    </p>
+                    <Link
+                        to="/customise"
+                        className="mt-10 px-8 py-5 rounded-full text-[14px] font-inter font-normal text-white bg-black hover:bg-[#1a1a1a] inline-flex items-center gap-2"
+                    >
+                        Customise Now <ArrowRight size={16} />
+                    </Link>
+
+                    <div className="relative w-full  mx-auto mt-40 cursor-pointer mb-10">
+                        <video
+                            ref={videoRef}
+                            src="https://www.w3schools.com/html/mov_bbb.mp4"
+                            className="border-[5px] border-[#969192] rounded-[20px] w-full"
+                            playsInline
+                            preload="metadata"
+                            controls={false}
+                            poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217" // sample poster image
+                            onClick={togglePlay} // clicking video toggles play/pause
+                        />
+
+                        {showIcon && (
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation(); // prevent triggering video click twice
+                                    togglePlay();
+                                }}
+                                className="absolute inset-0 flex items-center justify-center"
+                                aria-label={isPlaying ? "Pause video" : "Play video"}
+                            >
+                                <div className="bg-white p-4 rounded-full shadow-md">
+                                    {isPlaying ? (
+                                        <Pause size={30} color="#969192" fill="#969192" />
+                                    ) : (
+                                        <Play size={30} color="#969192" fill="#969192" />
+                                    )}
+                                </div>
+                            </button>
+                        )}
+                    </div>
+
                 </div>
 
             </div>
@@ -277,7 +372,7 @@ const Home = () => {
 
                     {/* Copyright */}
                     <p className="font-poppins font-normal text-[14px] text-[#808080] mt-1 mb-5">
-                       The Ringer © 2025, All Rights Reserved. Developed By <a href="https://c-lento.com/"><span className="font-semibold text-black">C‑LENTO</span></a>
+                        The Ringer © 2025, All Rights Reserved. Developed By <a href="https://c-lento.com/"><span className="font-semibold text-black">C‑LENTO</span></a>
                     </p>
                 </div>
             </div>
