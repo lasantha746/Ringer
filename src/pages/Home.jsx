@@ -1,14 +1,18 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Play, Pause } from 'lucide-react';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import Navbar from "../component/NavBar.jsx";
+import Footer from "../component/Footer.jsx";
 import ProductSlider from "../component/ProductSlider.jsx";
 import Customisations from "../component/Customisations.jsx";
 import CursorWaterEffect from "../component/CursorWaterEffect.jsx";
 
 const TOTAL_FRAMES = 300;
 const START_SHOW_NAVBAR_AT = 180;
+gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
     const canvasRef = useRef(null);
@@ -53,6 +57,91 @@ const Home = () => {
             setSlider5Top(`-${height}px`);
         }
     }, []);
+
+
+
+    //story animation
+    const stories = [
+        {
+            id: "01",
+            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua 01. ",
+            video: "/images/storyVideo/story01.mp4",
+        },
+        {
+            id: "02",
+            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua 02. ",
+            video: "/images/storyVideo/story02.mp4",
+        },
+        {
+            id: "03",
+            text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua 03. ",
+            video: "/images/storyVideo/story03.mp4",
+        },
+    ];
+    const storyRefs = useRef([]);
+
+    const splitTextIntoSpans = (text) => {
+        return text.split("").map((char, index) => (
+            <span
+                key={index}
+                className="char"
+                style={{
+                    display: "inline-block",
+                    color: "#D5D5D5",
+                }}
+            >
+                {char === " " ? "\u00A0" : char}
+            </span>
+        ));
+    };
+
+    useEffect(() => {
+        ScrollTrigger.getAll().forEach((t) => t.kill());
+
+        storyRefs.current.forEach((section) => {
+            const chars = section.querySelectorAll(".story-text .char");
+            const videoBX = section.querySelector(".video-box");
+            const content = section.querySelector(".flex-col");
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top+=100 top",
+                    end: "+=2000",
+                    scrub: true,
+                    pin: true,
+                    pinSpacing: true,
+                },
+            });
+
+            tl.to(chars, {
+                color: "black",
+                stagger: {
+                    each: 0.03,
+                    from: "start",
+                },
+                ease: "none",
+            });
+
+            //go content down befo start video animation
+            tl.to(content, {
+                y: "-30vh", // or adjust based on look
+                ease: "none",
+            });
+
+            // 3. Grow video height step-by-step
+            tl.to(videoBX, { height: "16rem", y: "-10vh", ease: "none" });
+            tl.to(videoBX, { height: "24rem", y: "-10vh", ease: "none" });
+            tl.to(videoBX, { height: "32rem", y: "-10vh", ease: "none" });
+
+        });
+
+        return () => {
+            ScrollTrigger.getAll().forEach((t) => t.kill());
+        };
+    }, []);
+
+
 
     //video play button
     const videoRef = useRef(null);
@@ -255,7 +344,13 @@ const Home = () => {
                 className="sticky top-0 bg-[#FAFAFA] min-h-screen p-5 md:p-10 pt-10 md:pt-20 rounded-t-[4rem] md:rounded-t-[8rem] shadow-[0_-8px_16px_rgba(0,0,0,0.1)]"
                 style={{ top: slider3Top, minHeight: 'calc(100vh + 4rem)' }}
             >
-                <div className="text-center px-0 sm:px-0 md:px-[10%]">
+                <div
+                    style={{
+                        height: `${stories.length * 2800}px`
+                        // height: '10500px',
+                    }}
+                    className="text-center px-0 sm:px-0 md:px-[10%] mb-20 md:mb-40"
+                >
                     <p className="font-inter font-normal text-lg sm:text-xl md:text-[20px] mb-7 sm:mb-4 bg-[#FFFFFF] rounded-[60px] px-6 py-2 inline-block">
                         How it Works
                     </p>
@@ -264,6 +359,43 @@ const Home = () => {
                         Lorem ipsum dolor sit amet, consectetur adipiscing sed do
                     </h2>
 
+                    {stories.map((story, index) => (
+                        <section
+                            key={index}
+                            ref={el => (storyRefs.current[index] = el)}
+                            className="relative flex items-center justify-center min-h-screen bg-[#FAFAFA] px-4"
+                        >
+                            {/* Content box centered vertically and horizontally */}
+                            <div className="flex flex-col items-center text-center max-w-4xl space-y-6 pt-10 md:pt-32">
+                                {/* Step Number */}
+                                <div className="flex flex-col items-center space-y-2">
+                                    <div className="font-inter font-normal text-lg sm:text-xl md:text-[20px] border border-black rounded-[14px] px-2 py-1 text-sm font-medium">
+                                        {story.id}
+                                    </div>
+                                    <div className="h-20 w-px bg-black" />
+                                </div>
+
+                                {/* Title (with animated chars) */}
+                                <h2 className="story-text font-inter text-2xl md:text-[48px] font-semibold leading-snug pb-8 md:pb-12">
+                                    {splitTextIntoSpans(story.text)}
+                                </h2>
+
+                                {/* Video */}
+                                <div style={{ willChange: "transform, height", transition: "none" }} className="video-box rounded-[80px] overflow-hidden h-32 mt-6">
+                                    <video
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                        className="object-contain w-full h-full"
+                                    >
+                                        <source src={story.video} type="video/mp4" />
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+                        </section>
+                    ))}
 
 
                 </div>
@@ -294,7 +426,7 @@ const Home = () => {
                         Customise Now <ArrowRight size={16} />
                     </Link>
 
-                    <div className="relative w-full  mx-auto mt-40 cursor-pointer mb-10">
+                    <div className="relative w-full  mx-auto mt-20 md:mt-40 cursor-pointer mb-10">
                         <video
                             ref={videoRef}
                             src="https://www.w3schools.com/html/mov_bbb.mp4"
@@ -336,50 +468,12 @@ const Home = () => {
                 className="sticky top-0 bg-white p-5 md:p-10 pt-10 md:pt-20 rounded-t-[4rem] md:rounded-t-[8rem] shadow-[0_-8px_16px_rgba(0,0,0,0.1)]"
                 style={{ top: slider5Top, minHeight: 'calc(4rem)' }}
             >
-                <div className="text-center flex flex-col items-center gap-6 px-5">
-                    {/* Logo */}
-                    <img src="/images/logo.png" alt="Logo" className="h-10 w-10 object-contain" />
-
-                    {/* Nav Links */}
-                    <div className="mt-1 flex gap-6 text-sm font-medium text-gray-700">
-                        <a href="#" className="font-[400] text-[16px] text-[#000000] font-inter transition-transform duration-300 hover:scale-110">Home</a>
-                        <a href="#" className="font-[400] text-[16px] text-[#000000] font-inter transition-transform duration-300 hover:scale-110">Shop</a>
-                        <a href="#" className="font-[400] text-[16px] text-[#000000] font-inter transition-transform duration-300 hover:scale-110">About</a>
-                        <a href="#" className="font-[400] text-[16px] text-[#000000] font-inter transition-transform duration-300 hover:scale-110">Contact</a>
-                    </div>
-
-                    {/* Subscribe Form */}
-                    <div className="mt-1 flex w-full max-w-md rounded-full border border-[#E6E6E6] focus:outline-none">
-                        <input
-                            type="email"
-                            placeholder="Your email address"
-                            className="flex-1 px-4 py-3 rounded-l-full focus:outline-none font-poppins text-[16px] placeholder-gray-500 placeholder:font-normal"
-                        />
-                        <button className="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 font-poppins font-semibold text-[16px]">
-                            Subscribe
-                        </button>
-                    </div>
-
-                    {/* Social Media Icons */}
-                    <div className="flex gap-2 mt-1">
-                        {/* Replace these with your preferred icons/components */}
-                        <a href="#" className="w-[40px] h-[40px] bg-black rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-110"><i className="fab fa-facebook-f text-white text-[18px]" /></a>
-                        <a href="#" className="w-[40px] h-[40px] bg-black rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-110"><i className="fab fa-youtube text-white text-[18px]" /></a>
-                        <a href="#" className="w-[40px] h-[40px] bg-black rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-110"><i className="fab fa-twitter text-white text-[18px]" /></a>
-                        <a href="#" className="w-[40px] h-[40px] bg-black rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-110"><i className="fab fa-pinterest-p text-white text-[18px]" /></a>
-                        <a href="#" className="w-[40px] h-[40px] bg-black rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-110"><i className="fab fa-instagram text-white text-[18px]" /></a>
-                    </div>
-
-                    {/* Copyright */}
-                    <p className="font-poppins font-normal text-[14px] text-[#808080] mt-1 mb-5">
-                        The Ringer © 2025, All Rights Reserved. Developed By <a href="https://c-lento.com/"><span className="font-semibold text-black">C‑LENTO</span></a>
-                    </p>
-                </div>
+                <Footer />
             </div>
 
 
             <CursorWaterEffect />
-        </div>
+        </div >
     );
 };
 
