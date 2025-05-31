@@ -19,7 +19,6 @@ const Home = () => {
     const [images, setImages] = useState([]);
     const [showNavbar, setShowNavbar] = useState(false);
 
-
     const slider1Ref = useRef(null);
     const slider2Ref = useRef(null);
     const slider3Ref = useRef(null);
@@ -58,8 +57,6 @@ const Home = () => {
         }
     }, []);
 
-
-
     //story animation
     const stories = [
         {
@@ -79,7 +76,6 @@ const Home = () => {
         },
     ];
     const storyRefs = useRef([]);
-
     const splitTextIntoSpans = (text) => {
         return text.split("").map((char, index) => (
             <span
@@ -141,6 +137,45 @@ const Home = () => {
         };
     }, []);
 
+    //review animation
+    // Updated GSAP animation section - replace your existing slider2 animation
+    const slider2Content = document.getElementById('slider2-content');
+    const slider2BgImage = document.getElementById('slider2-bg-image');
+
+    if (slider2Content && slider2BgImage) {
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: slider2Ref.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+                onUpdate: () => {
+                    // Get the current position of the green div's top edge
+                    const divRect = slider2Content.getBoundingClientRect();
+                    const divTop = divRect.top;
+
+                    // Get the image position
+                    const imageRect = slider2BgImage.getBoundingClientRect();
+                    const imageTop = imageRect.top;
+                    const imageHeight = imageRect.height;
+
+                    // Calculate how much the div has moved relative to the image bottom
+                    const imageBottom = imageTop + imageHeight;
+                    const distanceFromBottom = imageBottom - divTop;
+
+                    // Calculate what percentage of the image should be visible
+                    let visiblePercentage = (distanceFromBottom / imageHeight) * 100;
+                    visiblePercentage = Math.max(0, Math.min(100, visiblePercentage));
+
+                    // Calculate clip percentage (100% - visible% = hidden from top)
+                    const clipPercentage = 100 - visiblePercentage;
+
+                    // Apply clip-path to both image and gradient overlay
+                    slider2BgImage.style.clipPath = `inset(${clipPercentage}% 0 0 0)`;
+                }
+            }
+        });
+    }
 
 
     //video play button
@@ -148,7 +183,6 @@ const Home = () => {
     const timeoutRef = useRef(null);  // to store timeout ID
     const [isPlaying, setIsPlaying] = useState(false);
     const [showIcon, setShowIcon] = useState(true);
-
 
     useEffect(() => {
         const video = videoRef.current;
@@ -197,6 +231,30 @@ const Home = () => {
             clearTimeout(timeoutRef.current);
         }
     };
+
+    //vibrate
+    const [isVideoHover, setIsVideoHover] = useState(false);
+    const [isVibrating, setIsVibrating] = useState(false);
+    const handleVideoMouseEnter = () => {
+        console.log("Mouse entered video box!");
+
+        if (isVibrating) return;
+
+        if (!isVideoHover) {
+            setIsVideoHover(true);
+            setIsVibrating(true);
+
+            setTimeout(() => {
+                setIsVibrating(false);
+            }, 1000); // Stop after 1 second
+        };
+    };
+
+    const handleVideoMouseLeave = () => {
+        console.log("Mouse left video box!");
+        setIsVideoHover(false);
+    };
+
 
     // Load all images into memory
     useEffect(() => {
@@ -318,10 +376,10 @@ const Home = () => {
             {/* Slider 02 Section */}
             <div
                 ref={slider2Ref}
-                className="sticky top-0 bg-[#FFFFFF] min-h-screen p-5 md:p-10 pt-10 md:pt-20 rounded-t-[4rem] md:rounded-t-[8rem] shadow-[0_-8px_16px_rgba(0,0,0,0.1)]"
+                className="sticky top-0 bg-[#FFFFFF] min-h-screen p-5 md:p-10 pb-0 md:pb-0 pt-0 md:pt-0 rounded-t-[4rem] md:rounded-t-[8rem] shadow-[0_-8px_16px_rgba(0,0,0,0.1)]"
                 style={{ top: slider2Top, minHeight: 'calc(100vh + 4rem)' }}
             >
-                <div className="text-center px-0 sm:px-0 md:px-[10%]">
+                <div className="relative z-20 bg-[#FFFFFF] text-center px-0 sm:px-0 md:px-[10%] pt-10 md:pt-20 rounded-t-[4rem] md:rounded-t-[8rem]">
                     <p className="font-inter font-normal text-lg sm:text-xl md:text-[20px] mb-7 sm:mb-4 bg-[#FAFAFA] rounded-[60px] px-6 py-2 inline-block">
                         Testimonials
                     </p>
@@ -330,10 +388,57 @@ const Home = () => {
                         Lorem ipsum dolor sit amet, consectetur adipiscing sed do
                     </h2>
 
-
-                    <p className="font-poppins font-light text-base sm:text-lg md:text-xl mt-2 sm:mt-4 mb-4">
+                    <p className="font-poppins font-light text-base sm:text-lg md:text-xl mt-2 sm:mt-4 pb-4">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
                     </p>
+                </div>
+
+                <div id="slider2-content" style={{ backgroundColor: 'green' }} className="relative w-full h-full text-center flex items-center justify-center">
+
+                    <img
+                        src="/images/ringBG.jpg"
+                        alt="background"
+                        className="absolute w-[80vw] h-full object-cover top-0 left-1/2 transform -translate-x-1/2 z-0 transition-all duration-300 ease-out"
+                        draggable="false"
+                    />
+
+                    {/* Main background image with clip-path */}
+                    <img
+                        src="/images/ringBG.jpg"
+                        alt="background"
+                        className="fixed w-[80vw] h-full top-0 left-1/2 transform -translate-x-1/2 z-10 pointer-events-none rounded-t-[4rem] md:rounded-t-[8rem]"
+                        style={{
+                            clipPath: 'inset(100% 0 0 0)', // Initially hidden (clipped from top)
+                        }}
+                        id="slider2-bg-image"
+                        draggable="false"
+                    />
+
+                    <div className="absolute z-20 w-[50vw] h-[50vw] rounded-full bg-white flex items-center justify-center shadow-2xl ring-8 ring-gray-200">
+
+                        {/* //review */}
+                        <div className="text-center px-6">
+                            <img src="/images/iconReview.png" alt="Customer testimonial" className="w-32 mx-auto mb-10 object-cover" />
+                            <p className="mt-10 pt-10 text-gray-700 font-inter font-normal text-lg sm:text-xl md:text-[20px]">
+                                This ring exceeded my expectations. I’ve never felt more connected to a piece of jewelry—it truly tells my story.
+                            </p>
+                            <p className="mt-5 font-inter font-normal text-lg sm:text-xl md:text-[14px] text-gray-500">-Sienna M., Los Angeles-</p>
+                        </div>
+                    </div>
+
+                    <img
+                        src="/images/bgring.png"
+                        alt="background"
+                        className="absolute w-full h-auto object-contain z-20"
+                        draggable="false"
+                    />
+                    <img
+                        src="/images/bgring.png"
+                        alt="background"
+                        className=" w-full h-auto object-contain z-30"
+                        draggable="false"
+                        style={{ visibility: 'hidden' }}
+                    />
                 </div>
 
             </div>
@@ -425,12 +530,18 @@ const Home = () => {
                     >
                         Customise Now <ArrowRight size={16} />
                     </Link>
+                    <div className={`relative w-full mx-auto mt-20 md:mt-40 cursor-pointer mb-10`}
+                        onMouseEnter={handleVideoMouseEnter}
+                        onMouseLeave={handleVideoMouseLeave}
+                    >
 
-                    <div className="relative w-full  mx-auto mt-20 md:mt-40 cursor-pointer mb-10">
                         <video
                             ref={videoRef}
                             src="https://www.w3schools.com/html/mov_bbb.mp4"
-                            className="border-[5px] border-[#969192] rounded-[20px] w-full"
+                            className={`
+                                        border-[5px] border-[#969192] rounded-[20px] w-full
+                                        ${isVibrating ? 'vibrate-box' : ''}
+                                    `}
                             playsInline
                             preload="metadata"
                             controls={false}
@@ -438,6 +549,7 @@ const Home = () => {
                             onClick={togglePlay} // clicking video toggles play/pause
                         />
 
+                    
                         {showIcon && (
                             <button
                                 onClick={(e) => {
