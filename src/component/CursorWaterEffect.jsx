@@ -1,10 +1,27 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 const CursorWaterEffect = () => {
     const canvasRef = useRef(null);
     const cursorRef = useRef(null);
+     const [isVisible, setIsVisible] = useState(true);
+
+       useEffect(() => {
+        const handleResize = () => {
+            setIsVisible(window.innerWidth >= 768);
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
 
     useEffect(() => {
+        if (!isVisible) return;
+
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
         canvas.width = window.innerWidth;
@@ -71,7 +88,9 @@ const CursorWaterEffect = () => {
             window.removeEventListener("mousemove", handleMouseMove);
         };
 
-    }, []);
+    }, [isVisible]);
+
+      if (!isVisible) return null;
 
     return (
         <>

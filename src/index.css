@@ -2,38 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-*, body, html {
-  cursor: none !important;
+*,
+body,
+html {
 }
 
-.alltop{
+.alltop {
     z-index: 99999 !important;
 }
-
-
-/* Replace your old CSS in index.css with this better version */
 
 .vibrate-box {
     animation: shake-rotate 0.15s infinite;
 }
 
 @keyframes shake-rotate {
-    0% { 
-        transform: translateX(0) translateY(0) rotate(0deg); 
+    0% {
+        transform: translateX(0) translateY(0) rotate(0deg);
     }
-    20% { 
-        transform: translateX(-2px) translateY(-1px) rotate(-0.5deg); 
+
+    20% {
+        transform: translateX(-2px) translateY(-1px) rotate(-0.5deg);
     }
-    40% { 
-        transform: translateX(2px) translateY(1px) rotate(0.5deg); 
+
+    40% {
+        transform: translateX(2px) translateY(1px) rotate(0.5deg);
     }
-    60% { 
-        transform: translateX(-2px) translateY(-1px) rotate(-0.5deg); 
+
+    60% {
+        transform: translateX(-2px) translateY(-1px) rotate(-0.5deg);
     }
-    80% { 
-        transform: translateX(2px) translateY(1px) rotate(0.5deg); 
+
+    80% {
+        transform: translateX(2px) translateY(1px) rotate(0.5deg);
     }
-    100% { 
-        transform: translateX(0) translateY(0) rotate(0deg); 
+
+    100% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+    }
+}
+
+@media (min-width: 768px) {
+    *,
+    body,
+    html {
+        cursor: none !important;
     }
 }
