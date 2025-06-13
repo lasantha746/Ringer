@@ -31,8 +31,8 @@ const Navbar = () => {
         <div className="hidden lg:flex justify-between items-center w-full">
           {/* Left Links */}
           <div className="flex gap-2 flex-wrap">
-            <Link to="/" onClick={() => window.scrollTo(0, 0)} className="px-5 py-2 rounded-full text-sm font-medium bg-[#E1E1E1] hover:bg-[#d4d4d4] font-inter font-normal text-base">Home</Link>
-            <Link to="/shop" onClick={() => window.scrollTo(0, 0)} className="px-5 py-2 rounded-full text-sm font-medium bg-[#E1E1E1] hover:bg-[#d4d4d4] font-inter font-normal text-base">Shop</Link>
+            <Link onClick={(e) => { e.preventDefault(); window.location.href = "/"; }} className="px-5 py-2 rounded-full text-sm font-medium bg-[#E1E1E1] hover:bg-[#d4d4d4] font-inter font-normal text-base">Home</Link>
+            <Link onClick={(e) => { e.preventDefault(); window.location.href = "/shop"; }} className="px-5 py-2 rounded-full text-sm font-medium bg-[#E1E1E1] hover:bg-[#d4d4d4] font-inter font-normal text-base">Shop</Link>
             <Link to="/about" onClick={() => window.scrollTo(0, 0)} className="px-5 py-2 rounded-full text-sm font-medium bg-[#E1E1E1] hover:bg-[#d4d4d4] font-inter font-normal text-base">About</Link>
           </div>
 

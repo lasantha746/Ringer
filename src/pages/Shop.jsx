@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Heart, Star, StarHalf, ArrowLeft, ArrowRight, Search } from 'lucide-react';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Link } from "react-router-dom";
 
 import Navbar from "../component/NavBar.jsx";
 import Footer from "../component/Footer.jsx";
@@ -153,37 +154,44 @@ const Shop = () => {
 
                                     </div>
 
-                                    {/* Ring Image */}
-                                    <img
-                                        src="/images/product/p1.png"
-                                        alt="Ring"
-                                        className="w-full object-contain my-4"
-                                    />
+                                    <Link onClick={(e) => { e.preventDefault(); window.location.href = "/productDetail"; }} >
+                                        {/* Ring Image */}
+                                        <img
+                                            src="/images/product/p1.png"
+                                            alt="Ring"
+                                            className="w-full object-contain my-4"
+                                        />
+                                    </Link>
 
                                     <div className="w-full flex justify-center items-center px-0 mt-0">
-                                        <div className="w-full flex justify-center items-center">
-                                            <span className="font-inter font-[400] text-[12px] md:text-[14px]">Customize</span>
-                                            <img className="ms-2 w-4 h-4" src="/images/customize.png" alt="" />
-                                        </div>
+                                        <Link onClick={(e) => { e.preventDefault(); window.location.href = "/customize"; }}>
+                                            <div className="w-full flex justify-center items-center">
+                                                <span className="font-inter font-[400] text-[12px] md:text-[14px]">Customize</span>
+                                                <img className="ms-2 w-4 h-4" src="/images/customize.png" alt="" />
+                                            </div>
+                                        </Link>
                                     </div>
                                 </div>
 
                                 <div className="mt-5 flex flex-col items-center justify-between">
-                                    {/* Title */}
-                                    <h3 className="text-center text-sm md:text-[18px] font-inter text-black font-[500]">Sample Ring Name</h3>
 
-                                    {/* Rating */}
-                                    <div className="mt-3 flex items-center justify-center space-x-1 text-xs mt-1">
-                                        <div className="flex">
-                                            <Star className="w-4 h-4" fill="#ED9E53" stroke="none" />
-                                            <Star className="w-4 h-4" fill="#ED9E53" stroke="none" />
-                                            <Star className="w-4 h-4" fill="#ED9E53" stroke="none" />
-                                            <Star className="w-4 h-4" fill="#ED9E53" stroke="none" />
-                                            <Star className="w-4 h-4" fill="#D9D9D9" stroke="none" />
+                                    <Link onClick={(e) => { e.preventDefault(); window.location.href = "/productDetail"; }} >
+                                        {/* Title */}
+                                        <h3 className="text-center text-sm md:text-[18px] font-inter text-black font-[500]">Sample Ring Name</h3>
+
+                                        {/* Rating */}
+                                        <div className="mt-3 flex items-center justify-center space-x-1 text-xs mt-1">
+                                            <div className="flex">
+                                                <Star className="w-4 h-4" fill="#ED9E53" stroke="none" />
+                                                <Star className="w-4 h-4" fill="#ED9E53" stroke="none" />
+                                                <Star className="w-4 h-4" fill="#ED9E53" stroke="none" />
+                                                <Star className="w-4 h-4" fill="#ED9E53" stroke="none" />
+                                                <Star className="w-4 h-4" fill="#D9D9D9" stroke="none" />
+                                            </div>
+
+                                            <span className="ms-2 text-[10px] md:text-[14px] font-[400] font-inter">(4.8 of 5)</span>
                                         </div>
-
-                                        <span className="ms-2 text-[10px] md:text-[14px] font-[400] font-inter">(4.8 of 5)</span>
-                                    </div>
+                                    </Link>
 
                                     {/* Button */}
                                     <button className="mt-4 px-4 py-3 bg-black text-white text-sm md:text-[16px] font-[400] font-inter rounded-full shadow hover:bg-gray-900 transition">
@@ -192,7 +200,6 @@ const Shop = () => {
                                 </div>
 
                             </div>
-
                         ))}
 
                     </div>
