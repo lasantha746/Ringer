@@ -45,10 +45,10 @@ const Navbar = () => {
           <div className="flex gap-2 items-center flex-wrap">
             <Link to="/search" onClick={() => window.scrollTo(0, 0)} className="px-5 py-2  rounded-full text-sm font-medium bg-[#E1E1E1] hover:bg-[#d4d4d4] font-inter font-normal text-base">Search</Link>
             <Link to="/account" onClick={() => window.scrollTo(0, 0)} className="px-5 py-2 rounded-full text-sm font-medium bg-[#E1E1E1] hover:bg-[#d4d4d4] font-inter font-normal text-base">Account</Link>
-            <Link to="/wishlist" onClick={() => window.scrollTo(0, 0)} className="p-2 rounded-full bg-[#E1E1E1] hover:bg-[#d4d4d4]">
+            <Link onClick={(e) => { e.preventDefault(); window.location.href = "/wishlist"; }} className="p-2 rounded-full bg-[#E1E1E1] hover:bg-[#d4d4d4]">
               <Heart size={18} />
             </Link>
-            <Link to="/cart" onClick={() => window.scrollTo(0, 0)} className="p-2 rounded-full bg-[#E1E1E1] hover:bg-[#d4d4d4]">
+            <Link onClick={(e) => { e.preventDefault(); window.location.href = "/cart"; }} className="p-2 rounded-full bg-[#E1E1E1] hover:bg-[#d4d4d4]">
               <ShoppingCart size={18} />
             </Link>
           </div>

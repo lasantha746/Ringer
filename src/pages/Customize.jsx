@@ -11,11 +11,18 @@ import CursorWaterEffect from "../component/CursorWaterEffect.jsx";
 gsap.registerPlugin(ScrollTrigger);
 
 const Customize = () => {
+    const slider0Ref = useRef(null);
     const slider1Ref = useRef(null);
     const slider2Ref = useRef(null);
+    const [slider0Top, setSlider0Top] = useState("-4rem");
     const [slider1Top, setSlider1Top] = useState("-4rem");
     const [slider2Top, setSlider2Top] = useState("-4rem");
     useEffect(() => {
+        if (slider0Ref.current) {
+            const windowHeight = window.innerHeight;
+            const height = slider0Ref.current.offsetHeight - windowHeight;
+            setSlider0Top(`-${height}px`);
+        }
         if (slider1Ref.current) {
             const windowHeight = window.innerHeight;
             const height = slider1Ref.current.offsetHeight - windowHeight;
@@ -34,10 +41,12 @@ const Customize = () => {
             {<Navbar />}
 
             {/* Sticky Image Viewer */}
-            <div className="h-[100vh] relative sticky top-0 bg-[#FFFFFF]">
-                <div className="sticky top-0 h-screen w-full flex justify-center items-center">
-
-                </div>
+            <div
+                ref={slider0Ref}
+                className="sticky top-0 bg-[#FFFFFF] min-h-screen pt-16 pb-32"
+                style={{ top: slider0Top, minHeight: 'calc(100vh + 4rem)' }}
+            >
+                <img className="object-contain w-full" src="/images/CustomizePreview.png" alt="" />
             </div>
 
             {/* Slider 01 Section */}

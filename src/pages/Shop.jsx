@@ -10,7 +10,19 @@ import CursorWaterEffect from "../component/CursorWaterEffect.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const products = [...Array(30).keys()];
+const products = [
+    { id: 1, name: "Diamond Ring", price: 34000, image: "/images/product/p1.png", isNew: true, isWish: true, hasCustomize: true, rating: 4.8 },
+    { id: 2, name: "Gold Ring", price: 28000, image: "/images/product/p1.png", isNew: false, isWish: false, hasCustomize: false, rating: 4.2 },
+    { id: 3, name: "Silver Ring", price: 15000, image: "/images/product/p1.png", isNew: true, isWish: false, hasCustomize: true, rating: 4.9 },
+    { id: 4, name: "Platinum Ring", price: 46000, image: "/images/product/p1.png", isNew: false, isWish: true, hasCustomize: true, rating: 3.8 },
+    { id: 5, name: "Rose Gold Ring", price: 32000, image: "/images/product/p1.png", isNew: true, isWish: false, hasCustomize: false, rating: 4.5 },
+    { id: 6, name: "Classic Ring", price: 22000, image: "/images/product/p1.png", isNew: false, isWish: false, hasCustomize: true, rating: 4.1 },
+    { id: 7, name: "Modern Ring", price: 39000, image: "/images/product/p1.png", isNew: true, isWish: false, hasCustomize: false, rating: 5.0 },
+    { id: 8, name: "Vintage Ring", price: 31000, image: "/images/product/p1.png", isNew: false, isWish: true, hasCustomize: true, rating: 3.5 },
+    { id: 9, name: "Minimal Ring", price: 18000, image: "/images/product/p1.png", isNew: true, isWish: false, hasCustomize: false, rating: 4.3 },
+    { id: 10, name: "Luxury Ring", price: 50000, image: "/images/product/p1.png", isNew: true, isWish: true, hasCustomize: true, rating: 4.9 },
+];
+
 const perPage = 8;
 
 const Shop = () => {
@@ -139,37 +151,49 @@ const Shop = () => {
 
                     <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-16">
 
-                        {paginated.map((_, i) => (
+                        {paginated.map((product, i) => (
 
-                            <div key={i} className="w-full h-[auto]  flex flex-col items-center justify-between p-4">
+                            <div key={product.id} className="w-full h-[auto]  flex flex-col items-center justify-between p-4">
 
                                 <div className="w-full h-[auto] flex flex-col items-center justify-between p-5 bg-white rounded-[70px] shadow-md transition-transform duration-300 hover:scale-105 hover:shadow-lg">
                                     {/* Top Badge and Heart */}
                                     <div className="w-full flex justify-between items-center px-0 mt-0">
                                         <div></div>
-                                        <span className="ms-10 font-inter font-[400] text-[12px] md:text-[14px] text-orange-400">New</span>
-                                        <div className="w-7 h-7 flex items-center justify-center rounded-full bg-[#FAFAFA] border-[2px] border-[#FAFAFA] focus:outline-none hover:border-[red]">
-                                            <Heart className="w-5 h-5 hover:fill-[red]" fill="#D9D9D9" stroke="none" />
-                                        </div>
 
+                                        <span className="ms-10 font-inter font-[400] text-[12px] md:text-[14px] text-orange-400">
+                                            {product.isNew ? "New" : ""}
+                                        </span>
+                                        <Link onClick={(e) => { e.preventDefault(); window.location.href = "/wishlist"; }} >
+                                            <div className={`w-7 h-7 flex items-center justify-center rounded-full bg-[#FAFAFA] border-[2px] border-[#FAFAFA] focus:outline-none hover:border-[red] ${product.isWish ? "border-[red]" : "border-[#FAFAFA] hover:border-[red]"}`}>
+                                                <Heart
+                                                    className={`w-5 h-5 ${product.isWish ? "fill-[red]" : "hover:fill-[red]"}`}
+                                                    fill={product.isWish ? "red" : "#D9D9D9"}
+                                                    stroke="none"
+                                                />
+                                            </div>
+                                        </Link>
                                     </div>
 
                                     <Link onClick={(e) => { e.preventDefault(); window.location.href = "/productDetail"; }} >
                                         {/* Ring Image */}
                                         <img
-                                            src="/images/product/p1.png"
-                                            alt="Ring"
+                                            src={product.image}
+                                            alt={product.name}
                                             className="w-full object-contain my-4"
                                         />
                                     </Link>
 
                                     <div className="w-full flex justify-center items-center px-0 mt-0">
-                                        <Link onClick={(e) => { e.preventDefault(); window.location.href = "/customize"; }}>
-                                            <div className="w-full flex justify-center items-center">
-                                                <span className="font-inter font-[400] text-[12px] md:text-[14px]">Customize</span>
-                                                <img className="ms-2 w-4 h-4" src="/images/customize.png" alt="" />
-                                            </div>
-                                        </Link>
+                                        {product.hasCustomize ? (
+                                            <Link onClick={(e) => { e.preventDefault(); window.location.href = "/customize"; }}>
+                                                <div className="w-full flex justify-center items-center">
+                                                    <span className="font-inter font-[400] text-[12px] md:text-[14px]">Customize</span>
+                                                    <img className="ms-2 w-4 h-4" src="/images/customize.png" alt="" />
+                                                </div>
+                                            </Link>
+                                        ) : (
+                                            <div className="w-full flex justify-center items-center mb-5"></div>
+                                        )}
                                     </div>
                                 </div>
 
@@ -177,25 +201,28 @@ const Shop = () => {
 
                                     <Link onClick={(e) => { e.preventDefault(); window.location.href = "/productDetail"; }} >
                                         {/* Title */}
-                                        <h3 className="text-center text-sm md:text-[18px] font-inter text-black font-[500]">Sample Ring Name</h3>
+                                        <h3 className="text-center text-sm md:text-[18px] font-inter text-black font-[500]">{product.name}</h3>
 
                                         {/* Rating */}
                                         <div className="mt-3 flex items-center justify-center space-x-1 text-xs mt-1">
                                             <div className="flex">
-                                                <Star className="w-4 h-4" fill="#ED9E53" stroke="none" />
-                                                <Star className="w-4 h-4" fill="#ED9E53" stroke="none" />
-                                                <Star className="w-4 h-4" fill="#ED9E53" stroke="none" />
-                                                <Star className="w-4 h-4" fill="#ED9E53" stroke="none" />
-                                                <Star className="w-4 h-4" fill="#D9D9D9" stroke="none" />
+                                                {Array.from({ length: 5 }, (_, i) => (
+                                                    <Star
+                                                        key={i}
+                                                        className="w-4 h-4"
+                                                        fill={i < Math.floor(product.rating) ? "#ED9E53" : "#D9D9D9"}
+                                                        stroke="none"
+                                                    />
+                                                ))}
                                             </div>
 
-                                            <span className="ms-2 text-[10px] md:text-[14px] font-[400] font-inter">(4.8 of 5)</span>
+                                            <span className="ms-2 text-[10px] md:text-[14px] font-[400] font-inter">({product.rating} of 5)</span>
                                         </div>
                                     </Link>
 
                                     {/* Button */}
                                     <button className="mt-4 px-4 py-3 bg-black text-white text-sm md:text-[16px] font-[400] font-inter rounded-full shadow hover:bg-gray-900 transition">
-                                        Cart . Rs.34000/=
+                                        Cart . Rs.{product.price}/=
                                     </button>
                                 </div>
 
