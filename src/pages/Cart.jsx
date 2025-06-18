@@ -63,6 +63,7 @@ const Cart = () => {
     };
 
     const [showModal, setShowModal] = useState(false);
+    const [selectedPayment, setSelectedPayment] = useState("");
 
     const handlePlaceOrderClick = () => {
         setShowModal(true);
@@ -71,7 +72,6 @@ const Cart = () => {
     const handleCloseModal = () => {
         setShowModal(false);
     };
-
 
     return (
         <div className="relative w-full bg-[#FAFAFA]">
@@ -252,10 +252,9 @@ const Cart = () => {
                 <Footer />
             </div>
 
-
             {showModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-30 z-[99999] flex justify-center items-center">
-                    <div className="bg-[#FAFAFA] max-h-[95%] overflow-y-auto w-[90%] sm:w-[400px] rounded-[40px] p-6 pb-2 relative shadow-xl">
+                    <div className="bg-[#FAFAFA] max-h-[95%] overflow-hidden w-[90%] sm:w-[400px] rounded-[40px] p-6 pb-2 relative shadow-xl">
                         <button onClick={handleCloseModal} className="absolute top-4 right-4">
                             <X size={20} className="text-[#626262] hover:text-[red]" />
                         </button>
@@ -271,8 +270,11 @@ const Cart = () => {
                         </div>
 
                         {/* Payment Options */}
-                        <div className="space-y-3 mb-4">
-                            <label className="bg-[#FFFFFF] flex items-center justify-between px-5 py-4 rounded-[20px] cursor-pointer hover:border-black">
+                        <div className="space-y-3 mb-4 overflow-y-auto max-h-[250px]">
+                            <label onClick={() => setSelectedPayment("card")}
+                                className={`bg-[#FFFFFF] flex items-center justify-between px-5 py-4 rounded-[20px] cursor-pointer hover:border-black border-2
+                                ${selectedPayment === "card" ? "border-black" : "border-transparent"
+                                    }`}>
                                 <div className="flex items-center">
                                     <input type="radio" name="payment" className="form-radio" />
                                     <span className="ml-3 text-[12px] md:text-[14px] font-[500] font-inter">Credit / Debit Card</span>
@@ -283,7 +285,9 @@ const Cart = () => {
                                     <img src="/images/visa.png" alt="Visa" className="h-7 object-contain" />
                                 </div>
                             </label>
-                            <label className="bg-[#FFFFFF] flex items-center justify-between px-5 py-4 rounded-[20px] cursor-pointer hover:border-black">
+
+                            <label onClick={() => setSelectedPayment("cod")}
+                                className={`bg-[#FFFFFF] flex items-center justify-between px-5 py-4 rounded-[20px] cursor-pointer hover:border-black border-2 ${selectedPayment === "cod" ? "border-black" : "border-transparent"}`}>
                                 <div className="flex items-center">
                                     <input type="radio" name="payment" className="form-radio" />
                                     <span className="ml-3 text-[12px] md:text-[14px] font-[500] font-inter">Cash on Delivery</span>
@@ -293,7 +297,30 @@ const Cart = () => {
                                     <img src="/images/cod.png" alt="cod" className="h-7 object-contain" />
                                 </div>
                             </label>
-                            <label className="bg-[#FFFFFF] flex items-center justify-between px-5 py-4 rounded-[20px] cursor-pointer hover:border-black">
+                            {selectedPayment === "cod" && (
+                                <>
+                                    <div className="mb-2">
+                                        <label className="block font-inter font-[500] text-[12px] md:text-[14px] mb-1">Full Name</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Ex: David Max"
+                                            className="w-full bg-[#F4F4F4] rounded-[20px] px-4 py-3 text-sm outline-none"
+                                        />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label className="block font-inter font-[500] text-[12px] md:text-[14px] mb-1">Delivery Address</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Ex: Sample Road, Colombo"
+                                            className="w-full bg-[#F4F4F4] rounded-[20px] px-4 py-3 text-sm outline-none"
+                                        />
+                                    </div>
+                                </>
+
+                            )}
+
+                            <label onClick={() => setSelectedPayment("shop")}
+                                className={`bg-[#FFFFFF] flex items-center justify-between px-5 py-4 rounded-[20px] cursor-pointer hover:border-black border-2 ${selectedPayment === "shop" ? "border-black" : "border-transparent"}`}>
                                 <div className="flex items-center">
                                     <input type="radio" name="payment" className="form-radio" />
                                     <span className="ml-3 text-[12px] md:text-[14px] font-[500] font-inter">At the shop</span>
@@ -303,6 +330,27 @@ const Cart = () => {
                                     <img src="/images/atshop.png" alt="atshop" className="h-7 object-contain" />
                                 </div>
                             </label>
+                            {selectedPayment === "shop" && (
+                                <>
+                                    <div className="mb-2">
+                                        <label className="block font-inter font-[500] text-[12px] md:text-[14px] mb-1">Full Name</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Ex: David Max"
+                                            className="w-full bg-[#F4F4F4] rounded-[20px] px-4 py-3 text-sm outline-none"
+                                        />
+                                    </div>
+                                    <div className="mb-2">
+                                        <label className="block font-inter font-[500] text-[12px] md:text-[14px] mb-1">Email</label>
+                                        <input
+                                            type="email"
+                                            placeholder="Ex: samplemail@gmail.com"
+                                            className="w-full bg-[#F4F4F4] rounded-[20px] px-4 py-3 text-sm outline-none"
+                                        />
+                                    </div>
+                                </>
+
+                            )}
                         </div>
 
                         <button className="w-full bg-black text-white py-3 rounded-full font-inter text-[12px] md:text-[14px] font-[500]">Confirm Payment</button>
@@ -312,6 +360,7 @@ const Cart = () => {
                         >
                             Cancel
                         </button>
+
                     </div>
                 </div>
             )}

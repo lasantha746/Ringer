@@ -177,7 +177,6 @@ const Home = () => {
         });
     }
 
-
     //video play button
     const videoRef = useRef(null);
     const timeoutRef = useRef(null);  // to store timeout ID
@@ -254,7 +253,6 @@ const Home = () => {
         console.log("Mouse left video box!");
         setIsVideoHover(false);
     };
-
 
     // Load all images into memory
     useEffect(() => {

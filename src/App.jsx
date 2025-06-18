@@ -6,6 +6,10 @@ import ProductDetail from "./pages/ProductDetail";
 import Customize from "./pages/Customize";
 import Wishlist from "./pages/Wishlist";
 import Cart from "./pages/Cart";
+import CreateAccount from "./pages/CreateAccount";
+import LogIn from "./pages/LogIn";
+import Recovery from "./pages/Recovery";
+import NewPassword from "./pages/NewPassword";
 
 function App() {
   return (
@@ -18,6 +22,10 @@ function App() {
         <Route path="/customize" element={<Customize />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/createAccount" element={<CreateAccount />} />
+        <Route path="/logIn" element={<LogIn />} />
+        <Route path="/recovery" element={<Recovery />} />
+        <Route path="/newPassword" element={<NewPassword />} />
       </Routes>
     </BrowserRouter>
   );
