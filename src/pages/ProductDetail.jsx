@@ -145,6 +145,13 @@ const ProductDetail = () => {
                                     </span>
                                     <span className="text-[14px] md:text-[16px] font-[400] font-inter">Lightweight (2–4 grams)</span>
                                 </div>
+                                <div className="flex justify-between border-b border-gray-300 pb-7 mb-7">
+                                    <span className="text-[14px] md:text-[16px] font-[500] font-inter flex items-center">
+                                        <img className="me-2" src="/images/iconSize.png" alt="" />
+                                        Ring Size
+                                    </span>
+                                    <span className="text-[14px] md:text-[16px] font-[400] font-inter">US Size 6 (51.9 mm)</span>
+                                </div>
                             </div>
 
                             {/* Cart Actions */}
