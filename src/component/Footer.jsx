@@ -15,7 +15,7 @@ const Footer = () => {
         <a href="#" className="font-[400] text-[16px] text-[#000000] font-inter transition-transform duration-300 hover:scale-110">Home</a>
         <a href="#" className="font-[400] text-[16px] text-[#000000] font-inter transition-transform duration-300 hover:scale-110">Shop</a>
         <a href="#" className="font-[400] text-[16px] text-[#000000] font-inter transition-transform duration-300 hover:scale-110">About</a>
-        <Link onClick={(e) => { e.preventDefault(); window.location.href = "/contact_us"; }} className="font-[400] text-[16px] text-[#000000] font-inter transition-transform duration-300 hover:scale-110">Contact</Link>
+        <Link onClick={(e) => { e.preventDefault(); window.location.href = "/contactUS"; }} className="font-[400] text-[16px] text-[#000000] font-inter transition-transform duration-300 hover:scale-110">Contact</Link>
       </div>
 
       {/* Subscribe Form */}

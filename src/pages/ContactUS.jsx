@@ -10,7 +10,7 @@ import CursorWaterEffect from "../component/CursorWaterEffect.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Contact_us = () => {
+const ContactUS = () => {
     const slider1Ref = useRef(null);
     const slider2Ref = useRef(null);
     const [slider1Top, setSlider1Top] = useState("-4rem");
@@ -159,4 +159,4 @@ const Contact_us = () => {
     );
 };
 
-export default Contact_us;
+export default ContactUS;

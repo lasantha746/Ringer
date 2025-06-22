@@ -10,8 +10,9 @@ import CreateAccount from "./pages/CreateAccount";
 import LogIn from "./pages/LogIn";
 import Recovery from "./pages/Recovery";
 import NewPassword from "./pages/NewPassword";
-import Search_Page from "./pages/Search_Page";
-import Contact_us from "./pages/Contact_us";
+import SearchPage from "./pages/SearchPage";
+import ContactUS from "./pages/ContactUS";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -28,8 +29,9 @@ function App() {
         <Route path="/logIn" element={<LogIn />} />
         <Route path="/recovery" element={<Recovery />} />
         <Route path="/newPassword" element={<NewPassword />} />
-        <Route path="/search_Page" element={<Search_Page />} />
-        <Route path="/contact_us" element={<Contact_us />} />
+        <Route path="/searchPage" element={<SearchPage />} />
+        <Route path="/contactUS" element={<ContactUS />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </BrowserRouter>
   );

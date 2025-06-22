@@ -67,7 +67,7 @@ const ReviewSlider = () => {
                         className={`duration-700 ease-in-out ${index === 0 ? '' : 'hidden'}`}
                         data-carousel-item
                     >
-                        <div className="w-full mt-16 mb-16 bg-[#FFFFFF] rounded-[150px] text-center p-5 flex justify-center items-center flex-col">
+                        <div className="w-full mt-16 mb-16 bg-[#FFFFFF] rounded-[40px] md:rounded-[150px] text-center p-5 flex justify-center items-center flex-col">
                             {/* Title */}
                             <h3 className="text-center text-[10px] md:text-[14px] font-[400] font-poppins text-black">{review.date}</h3>
 
