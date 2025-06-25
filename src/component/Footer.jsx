@@ -12,7 +12,7 @@ const Footer = () => {
 
       {/* Nav Links */}
       <div className="mt-1 flex gap-6 text-sm font-medium text-gray-700">
-        <a href="#" className="font-[400] text-[16px] text-[#000000] font-inter transition-transform duration-300 hover:scale-110">Home</a>
+        <Link onClick={(e) => { e.preventDefault(); window.location.href = "/dashboard"; }} className="font-[400] text-[16px] text-[#000000] font-inter transition-transform duration-300 hover:scale-110">Home</Link>
         <a href="#" className="font-[400] text-[16px] text-[#000000] font-inter transition-transform duration-300 hover:scale-110">Shop</a>
         <a href="#" className="font-[400] text-[16px] text-[#000000] font-inter transition-transform duration-300 hover:scale-110">About</a>
         <Link onClick={(e) => { e.preventDefault(); window.location.href = "/contactUS"; }} className="font-[400] text-[16px] text-[#000000] font-inter transition-transform duration-300 hover:scale-110">Contact</Link>
