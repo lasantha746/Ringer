@@ -3,10 +3,10 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'; // or use any arrow ic
 import ObjViewer from './ObjViewer.jsx';
 
 const sliderItems = [
-  { id: 1, title: 'Classic Yellow Gold', subTitle: 'Vintage Charm', src: '/images/handModel/h1.png', obj: '/images/handModel/h1.obj', mtl: '/images/handModel/h1.mtl' },
-  { id: 2, title: 'Modern Platinum', subTitle: 'Vintage Charm', src: '/images/handModel/h2.png', obj: '/images/handModel/h2.obj', mtl: '/images/handModel/h2.mtl' },
-  { id: 3, title: 'Elegant Rose Gold', subTitle: 'Vintage Charm', src: '/images/handModel/h3.png', obj: '/images/handModel/h3.obj', mtl: '/images/handModel/h3.mtl' },
-  { id: 4, title: 'Vintage Charm', subTitle: 'Vintage Charm', src: '/images/handModel/h1.png', obj: '/images/handModel/h1.obj', mtl: '/images/handModel/h1.mtl' },
+  { id: 1, title: 'Men’s Ring', subTitle: 'Strong styles, clean lines — built for him', src: '/images/handModel/h1.png', obj: '/images/handModel/h1.obj', mtl: '/images/handModel/h1.mtl' },
+  { id: 2, title: 'Couple Ring', subTitle: 'Two souls, one design. Crafted for love', src: '/images/handModel/h2.png', obj: '/images/handModel/h2.obj', mtl: '/images/handModel/h2.mtl' },
+  { id: 3, title: 'Wedding Ring', subTitle: 'Designed to celebrate the day your forever begins', src: '/images/handModel/h3.png', obj: '/images/handModel/h3.obj', mtl: '/images/handModel/h3.mtl' },
+  { id: 4, title: 'Men’s Ring', subTitle: 'Strong styles, clean lines — built for him', src: '/images/handModel/h1.png', obj: '/images/handModel/h1.obj', mtl: '/images/handModel/h1.mtl' },
 ];
 
 export default function Customisations() {

@@ -36,7 +36,16 @@ const SearchPage = () => {
             {/* Sticky Image Viewer */}
             <div className="h-[100vh] relative sticky top-0 bg-[#FFFFFF]">
                 <div className="sticky top-0 h-screen w-full flex justify-center items-center">
-                    <img className="z-[-1] absolute h-full object-cover" src="/images/heroSRC/heroWishlist.png" alt="" style={{ opacity: 0.32 }} />
+                    {/* <img className="z-[-1] absolute h-full object-cover" src="/images/heroSRC/heroWishlist.png" alt="" style={{ opacity: 0.32 }} /> */}
+                    <video
+                        className="z-[-1] absolute h-full object-cover"
+                        src="/images/heroSRC/heroWishlist.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        style={{ opacity: 0.9 }}
+                    ></video>
                     <div className="text-center" style={{ opacity: 1 }}>
                         <h2 className="font-playfair font-[600] text-[70px] sm:text-[80px] md:text-[90px] lg:text-[100px] leading-snug sm:leading-tight md:leading-[1.2] lg:leading-[1.3] mb-5">
                             Search
@@ -86,10 +95,10 @@ const SearchPage = () => {
                             Lorem ipsum dolor sit amet, consectetur
                         </div>
                         <div className="font-poppins font-[300] text-[12px] md:text-[16px] w-full mb-5">
-                           Lorem ipsum dolor sit amet, elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+                            Lorem ipsum dolor sit amet, elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
                         </div>
                         <div className="font-inter font-[400] text-[12px] md:text-[16px] w-full text-[#FA8232] flex items-center">
-                            Navigate to the page <ArrowRight size={20} className="ms-2"/> 
+                            Navigate to the page <ArrowRight size={20} className="ms-2" />
                         </div>
                     </div>
 
@@ -98,10 +107,10 @@ const SearchPage = () => {
                             Lorem ipsum dolor sit amet, consectetur
                         </div>
                         <div className="font-poppins font-[300] text-[12px] md:text-[16px] w-full mb-5">
-                           Lorem ipsum dolor sit amet, elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+                            Lorem ipsum dolor sit amet, elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
                         </div>
                         <div className="font-inter font-[400] text-[12px] md:text-[16px] w-full text-[#FA8232] flex items-center">
-                            Navigate to the page <ArrowRight size={20} className="ms-2"/> 
+                            Navigate to the page <ArrowRight size={20} className="ms-2" />
                         </div>
                     </div>
 

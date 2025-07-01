@@ -39,8 +39,17 @@ const NewPassword = () => {
             {/* Sticky Image Viewer */}
             <div className="h-[100vh] relative sticky top-0 bg-[#FFFFFF]">
                 <div className="sticky top-0 h-screen w-full flex justify-center items-center">
-                    <img className="z-[-1] absolute h-full object-cover" src="/images/heroSRC/heroWishlist.png" alt="" style={{ opacity: 0.32 }} />
-                    <div className="text-center" style={{ opacity: 1 }}>
+                    {/* <img className="z-[-1] absolute h-full object-cover" src="/images/heroSRC/heroWishlist.png" alt="" style={{ opacity: 0.32 }} /> */}
+                     <video
+                        className="z-[-1] absolute h-full object-cover"
+                        src="/images/heroSRC/heroWishlist.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        style={{ opacity: 0.9 }}
+                    ></video>
+                     <div className="text-center" style={{ opacity: 1 }}>
                         <h2 className="font-playfair font-[600] text-[70px] sm:text-[80px] md:text-[90px] lg:text-[100px] leading-snug sm:leading-tight md:leading-[1.2] lg:leading-[1.3] mb-5">
                             Account
                         </h2>

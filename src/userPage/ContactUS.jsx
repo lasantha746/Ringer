@@ -36,7 +36,16 @@ const ContactUS = () => {
             {/* Sticky Image Viewer */}
             <div className="h-[100vh] relative sticky top-0 bg-[#FFFFFF]">
                 <div className="sticky top-0 h-screen w-full flex justify-center items-center">
-                    <img className="z-[-1] absolute h-full object-cover" src="/images/heroSRC/heroContact.png" alt="" style={{ opacity: 0.32 }} />
+                    {/* <img className="z-[-1] absolute h-full object-cover" src="/images/heroSRC/heroContact.png" alt="" style={{ opacity: 0.32 }} /> */}
+                    <video
+                        className="z-[-1] absolute h-full object-cover"
+                        src="/images/heroSRC/heroContact.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        style={{ opacity: 0.9 }}
+                    ></video>
                     <div className="text-center" style={{ opacity: 1 }}>
                         <h2 className="font-playfair font-[600] text-[70px] sm:text-[80px] md:text-[90px] lg:text-[100px] leading-snug sm:leading-tight md:leading-[1.2] lg:leading-[1.3] mb-5">
                             Contact
@@ -139,7 +148,7 @@ const ContactUS = () => {
                     </div>
                 </div>
                 <div className="py-5 pb-40">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126325.51655851418!2d80.32091034606522!3d8.33531321075318!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afcf4f99360e159%3A0xc111fe9ebc6dcf0e!2sAnuradhapura!5e0!3m2!1sen!2slk!4v1750524797647!5m2!1sen!2slk" width="100%" height="450" style={{ border: 0}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126325.51655851418!2d80.32091034606522!3d8.33531321075318!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afcf4f99360e159%3A0xc111fe9ebc6dcf0e!2sAnuradhapura!5e0!3m2!1sen!2slk!4v1750524797647!5m2!1sen!2slk" width="100%" height="450" style={{ border: 0 }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
             </div>

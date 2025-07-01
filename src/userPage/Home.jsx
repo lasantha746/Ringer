@@ -360,7 +360,7 @@ const Home = () => {
                         Products
                     </p>
                     <h2 className="font-playfair font-semibold text-3xl sm:text-4xl md:text-[56px] lg:text-[72px] leading-snug sm:leading-tight md:leading-[1.2] lg:leading-[1.3] mb-5">
-                        Crafted for the Moment You’ll Never Forget
+                       Make your moment shine with a ring you design
                     </h2>
                     <p className="font-poppins font-light text-base sm:text-lg md:text-xl mt-2 sm:mt-4 mb-4">
                         Our rings are designed with precision, love, and intention. Whether it’s a proposal, anniversary, or personal milestone—your story deserves brilliance.
@@ -383,11 +383,11 @@ const Home = () => {
                     </p>
 
                     <h2 className="font-playfair font-semibold text-3xl sm:text-4xl md:text-[56px] lg:text-[72px] leading-snug sm:leading-tight md:leading-[1.2] lg:leading-[1.3] mb-5">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing sed do
+                        Stories Etched in Gold
                     </h2>
 
                     <p className="font-poppins font-light text-base sm:text-lg md:text-xl mt-2 sm:mt-4 pb-4">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+                        Each ring we craft carries a personal journey — a celebration of love, milestones, and cherished memories. Here’s what our customers shared about their timeless treasures.
                     </p>
                 </div>
 
@@ -412,7 +412,7 @@ const Home = () => {
                         draggable="false"
                     />
 
-                    <div className="absolute z-20 w-[50vw] h-[50vw] rounded-full bg-white flex items-center justify-center shadow-2xl ring-8 ring-gray-200">
+                    <div className="absolute z-20 w-[60vw] h-[60vw] rounded-full bg-white flex items-center justify-center shadow-2xl ring-8 ring-gray-200">
 
                         {/* //review */}
                         <div className="text-center px-6">
@@ -459,7 +459,7 @@ const Home = () => {
                     </p>
 
                     <h2 className="font-playfair font-semibold text-3xl sm:text-4xl md:text-[56px] lg:text-[72px] leading-snug sm:leading-tight md:leading-[1.2] lg:leading-[1.3] mb-5">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing sed do
+                       Watch your precious ring come to life before your eyes.
                     </h2>
 
                     {stories.map((story, index) => (
@@ -517,7 +517,7 @@ const Home = () => {
                     </p>
 
                     <h2 className="font-playfair font-semibold text-3xl sm:text-4xl md:text-[56px] lg:text-[72px] leading-snug sm:leading-tight md:leading-[1.2] lg:leading-[1.3] mb-10">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing sed do
+                        Selecte your ring category , Create your signature ring.
                     </h2>
 
                     <Customisations />
@@ -547,7 +547,7 @@ const Home = () => {
                             onClick={togglePlay} // clicking video toggles play/pause
                         />
 
-                    
+
                         {showIcon && (
                             <button
                                 onClick={(e) => {
