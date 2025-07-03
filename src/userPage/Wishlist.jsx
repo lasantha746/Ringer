@@ -65,8 +65,8 @@ const Wishlist = () => {
                 <div className="sticky top-0 h-screen w-full flex justify-center items-center">
                     {/* <img className="z-[-1] absolute h-full object-cover" src="/images/heroSRC/heroWishlist.png" alt="" style={{ opacity: 0.32 }} /> */}
                     <video
-                        className="z-[-1] absolute h-full object-cover"
-                        src="/images/heroSRC/heroWishlist.mp4"
+                        className="z-[-1] absolute h-full w-full object-cover"
+                        src="/images/heroSRC/heroWishlistMain.mp4"
                         autoPlay
                         muted
                         loop
